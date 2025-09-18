@@ -74,6 +74,10 @@ os.environ["KINETICA_USERNAME"] = "admin"
 os.environ["KINETICA_PASSWORD"] = "Admin123!"
 os.environ["KINETICA_SCHEMA"] = "nvidia_gtc_dli_2025"
 
+# Fixed table name - no more environment variable issues!
+FIXED_TABLE_NAME = "nvidia_gtc_dli_2025.iperf3_logs"
+
+
 kdbc_options = GPUdb.Options()
 kdbc_options.username = os.environ.get("KINETICA_USERNAME")
 kdbc_options.password = os.environ.get("KINETICA_PASSWORD")
@@ -83,20 +87,24 @@ kdbc: GPUdb = GPUdb(
     options=kdbc_options
 )
 
-def generate_sql_query(ue:str):
+def generate_sql_query(ue: str, table_name: str = None):
+    # Use fixed table name if no specific table name provided
+    if table_name is None:
+        table_name = FIXED_TABLE_NAME
+    
     return f"""
             SELECT
                 "timestamp",
                 "loss_percentage",
                 "bitrate"
             FROM
-                {os.environ.get("IPERF3_RANDOM_TABLE_NAME")}
+                {table_name}
             WHERE
                 "ue"='{ue}' AND "timestamp" >= current_datetime() - INTERVAL {WINDOW_SIZE_SECONDS} SECONDS
             ORDER BY
                 "timestamp" DESC
             """
-
+    
 # Initialize InfluxDB client
 influx_client = InfluxDBMetricsClient()
 influx_client.connect()
