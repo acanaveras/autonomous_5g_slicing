@@ -1,27 +1,93 @@
 *.env
 
+
+
+
+
 *.log
+
+
+
+
 
 *.pyc
 
+
+
+
+
 GenerativeAIExamples/
 
+
+
+
+
 # Database and Cache files
+
+
 agentic-llm/grafana_data/
+
+
 llm-slicing-5g-lab/kinetica-data/
+
+
 *.db
 
 
+
+
+
+
+
+
 # Compiled binaries and libraries
+
+
 *.so
+
+
 *.o
+
+
 *.a
+
+
 *.so.*
+
+
 *.dylib
+
+
 *.dll
+
+
 *.exe
+
+
+
+
+
+
 
 
 *.DS_Store
 
+
+
+
+
 .next/
+
+
+config.bat
+
+
+branch_structure.json
+
+
+temp_auto_push.bat
+
+
+temp_interactive_push.bat
+
+node_modules
